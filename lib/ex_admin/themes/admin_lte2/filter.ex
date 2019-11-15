@@ -8,7 +8,7 @@ defmodule ExAdmin.Theme.AdminLte2.Filter do
   import ExAdmin.Filter
   use Xain
 
-  def theme_filter_view(conn, defn, q, order, scope) do
+  def theme_filter_view(conn, defn, q, sort_order, scope) do
     markup safe: true do
       div ".box.box-primary" do
         div ".box-header.with-border" do
@@ -25,8 +25,8 @@ defmodule ExAdmin.Theme.AdminLte2.Filter do
           div ".box-footer" do
             input name: "commit", type: "submit", value: (gettext "Filter"), class: "btn btn-primary"
             a ".clear_filters_btn " <> (gettext "Clear Filters"), href: "#", style: "padding-left: 10px"
-            order_value = if order, do: order, else: "id_desc"
-            input id: "order", name: "order", type: :hidden, value: order_value
+            order_value = if sort_order, do: sort_order, else: "id_desc"
+            input id: "sort_order", name: "sort_order", type: :hidden, value: order_value
           end
         end
       end

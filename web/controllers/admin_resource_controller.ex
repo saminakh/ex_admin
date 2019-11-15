@@ -132,15 +132,15 @@ defmodule ExAdmin.AdminResourceController do
 
     page_number = params[:page] || page.page_number
     opts = %{
-      href: admin_resource_path(conn, :index) <> "?order=",
-      order: ExQueb.get_sort_order(conn.params["order"])
+      href: admin_resource_path(conn, :index) <> "?sort_order=",
+      sort_order: ExQueb.get_sort_order(conn.params["sort_order"])
     }
     model_name = model |> base_name |> titleize
     model_id = model |> base_name |> Inflex.underscore
     pagination =
       opts[:href]
       |> build_scope_href(conn.params["scope"])
-      |> build_order_href(opts[:order])
+      |> build_order_href(opts[:sort_order])
       |> build_filter_href(conn.params["q"])
       |> ExAdmin.Paginate.paginate(page_number, page.page_size, page.total_pages, page.total_entries, "#{model_name}")
 

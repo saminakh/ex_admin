@@ -8,7 +8,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Filter do
   import ExAdmin.Filter
   use Xain
 
-  def theme_filter_view(conn, defn, q, order, scope) do
+  def theme_filter_view(conn, defn, q, sort_order, scope) do
     markup safe: true do
       div "#filters_sidebar_sectionl.sidebar_section.panel" do
         h3 (gettext "Filters")
@@ -22,8 +22,8 @@ defmodule ExAdmin.Theme.ActiveAdmin.Filter do
             div ".buttons" do
               input name: "commit", type: "submit", value: (gettext "Filter")
               a ".clear_filters_btn Clear Filters", href: "#"
-              order_value = if order, do: order, else: "id_desc"
-              input id: "order", name: "order", type: :hidden, value: order_value
+              order_value = if sort_order, do: sort_order, else: "id_desc"
+              input id: "sort_order", name: "sort_order", type: :hidden, value: order_value
             end
           end
         end

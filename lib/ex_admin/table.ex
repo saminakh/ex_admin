@@ -158,7 +158,7 @@ defmodule ExAdmin.Table do
   end
   def build_th(field_name, _, _), do: build_th(field_name, nil)
 
-  def _build_th(field_name, _opts, %{path_prefix: path_prefix, order: {name, sort},
+  def _build_th(field_name, _opts, %{path_prefix: path_prefix, sort_order: {name, sort},
       fields: _fields} = table_opts) when field_name == name do
     link_order = if sort == "desc", do: "asc", else: "desc"
     page_segment = case Map.get table_opts, :page, nil do

@@ -42,14 +42,14 @@ defmodule ExAdmin.Theme.ActiveAdmin.Index do
     selectable = opts[:selectable_column]
     columns = opts[:column_list]
     page = opts[:page]
-    order = opts[:order]
+    sort_order = opts[:sort_order]
     scope = conn.params["scope"]
     markup do
       div ".box-body.table-responsive.no-padding" do
         div ".paginated_collection" do
           table(".table-striped.index.table.index_table") do
             ExAdmin.Table.table_head(columns, %{selectable: true, path_prefix: opts[:href],
-              sort: "desc", order: order, fields: opts[:fields], page: page,
+              sort: "desc", sort_order: sort_order, fields: opts[:fields], page: page,
               filter: build_filter_href("", conn.params["q"]), scope: scope,
               selectable_column: selectable})
             build_table_body(conn, resources, columns, %{selectable_column: selectable})
@@ -96,7 +96,7 @@ defmodule ExAdmin.Theme.ActiveAdmin.Index do
     div ".box-footer.clearfix" do
       opts[:href]
       |> build_scope_href(conn.params["scope"])
-      |> build_order_href(opts[:order])
+      |> build_order_href(opts[:sort_order])
       |> build_filter_href(conn.params["q"])
       |> ExAdmin.Paginate.paginate(page.page_number, page.page_size, page.total_pages, opts[:count], opts[:name])
       download_links(conn, opts)
@@ -159,9 +159,9 @@ defmodule ExAdmin.Theme.ActiveAdmin.Index do
             if scopes != [] do
               current_scope = ExAdmin.Query.get_scope scopes, conn.params["scope"]
               ul ".scopes.table_tools_segmented_control", style: "width: calc((100% - 10px) - 108px); float: right;" do
-                order_segment = case conn.params["order"] do
+                order_segment = case conn.params["sort_order"] do
                   nil -> ""
-                  order -> "&order=#{order}"
+                  sort_order -> "&sort_order=#{sort_order}"
                 end
                 for {name, _opts} <- scopes do
                   count = scope_counts[name]

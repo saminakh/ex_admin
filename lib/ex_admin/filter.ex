@@ -18,9 +18,9 @@ defmodule ExAdmin.Filter do
   def filter_view(_conn, false, _defn), do: ""
   def filter_view(conn, _filters, defn) do
     q = conn.params["q"]
-    order = conn.params["order"]
+    sort_order = conn.params["sort_order"]
     scope = conn.params["scope"]
-    theme_module(conn, Filter).theme_filter_view(conn, defn, q, order, scope)
+    theme_module(conn, Filter).theme_filter_view(conn, defn, q, sort_order, scope)
   end
 
   def fields(%{index_filters: false}), do: []

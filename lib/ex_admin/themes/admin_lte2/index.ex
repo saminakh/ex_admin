@@ -41,14 +41,14 @@ defmodule ExAdmin.Theme.AdminLte2.Index do
     selectable = opts[:selectable_column]
     columns = opts[:column_list]
     page = opts[:page]
-    order = opts[:order]
+    sort_order = opts[:sort_order]
     scope = conn.params["scope"]
     markup do
       div ".box-body.table-responsive.no-padding" do
         div ".paginated_collection" do
           table(".table-striped.index.table.index_table") do
             ExAdmin.Table.table_head(columns, %{selectable: true, path_prefix: opts[:href],
-              sort: "desc", order: order, fields: opts[:fields], page: page,
+              sort: "desc", sort_order: sort_order, fields: opts[:fields], page: page,
               filter: build_filter_href("", conn.params["q"]), scope: scope,
               selectable_column: selectable})
             build_table_body(conn, resources, columns, %{selectable_column: selectable})
@@ -90,7 +90,7 @@ defmodule ExAdmin.Theme.AdminLte2.Index do
     div ".box-footer.clearfix" do
       opts[:href]
       |> build_scope_href(conn.params["scope"])
-      |> build_order_href(opts[:order])
+      |> build_order_href(opts[:sort_order])
       |> build_filter_href(conn.params["q"])
       |> ExAdmin.Paginate.paginate(page.page_number, page.page_size, page.total_pages, opts[:count], opts[:name])
       download_links(conn, opts)

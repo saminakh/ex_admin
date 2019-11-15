@@ -17,7 +17,7 @@ defmodule ExAdmin.PaginateTest do
       "Displaying Contacts <b>1&nbsp;-&nbsp;10</b> of <b>100</b> in total"
   end
 
-  @link "/admin/contacts?order="
+  @link "/admin/contacts?sort_order="
   test "paginate fist page links" do
     html = Paginate.paginate(@link, 1, 10, 11, 103, "Contacts")
     items = Floki.find(html, "ul.pagination li")
@@ -25,7 +25,7 @@ defmodule ExAdmin.PaginateTest do
     assert Floki.find(hd(items), "li a") |> Floki.text == "1"
     items = Enum.reverse items
     assert Floki.find(hd(items), "li a") |> Floki.attribute("href") ==
-      ["/admin/contacts?order=&page=11"]
+      ["/admin/contacts?sort_order=&page=11"]
   end
 
   test "paginate fist page information" do

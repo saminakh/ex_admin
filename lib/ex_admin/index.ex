@@ -285,8 +285,8 @@ defmodule ExAdmin.Index do
       column_list: Map.get(page_opts, :column_list),
       count: page.total_entries,
       name: name,
-      order: ExQueb.get_sort_order(conn.params["order"]),
-      href: admin_resource_path(conn, :index) <> "?order=",
+      sort_order: ExQueb.get_sort_order(conn.params["sort_order"]),
+      href: admin_resource_path(conn, :index) <> "?sort_order=",
       defn: defn,
       batch_actions: batch_actions,
       scopes: defn.scopes,
@@ -376,9 +376,9 @@ defmodule ExAdmin.Index do
 
   @doc false
   def build_csv_href(conn, opts) do
-    admin_resource_path(conn, :csv) <> "?order="
+    admin_resource_path(conn, :csv) <> "?sort_order="
     |> build_scope_href(conn.params["scope"])
-    |> build_order_href(opts[:order])
+    |> build_order_href(opts[:sort_order])
     |> build_filter_href(conn.params["q"])
   end
 

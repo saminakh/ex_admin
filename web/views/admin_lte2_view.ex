@@ -42,9 +42,9 @@ defmodule ExAdmin.AdminLte2.LayoutView do
   end
 
   defp do_scopes(conn, scopes, scope_counts, current_scope) do
-    order_segment = case conn.params["order"] do
+    order_segment = case conn.params["sort_order"] do
       nil -> ""
-      order -> "&order=#{order}"
+      sort_order -> "&sort_order=#{sort_order}"
     end
     for {name, _opts} <- scopes do
       count = scope_counts[name]
